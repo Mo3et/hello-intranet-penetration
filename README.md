@@ -1,2 +1,2 @@
-# hello-rev-proxy
-Reverse Proxy written in Go
+# https://github.com/Mo3et/hello-intranet-penetration
+intranet penetration (Reverse Proxy) written in Go
