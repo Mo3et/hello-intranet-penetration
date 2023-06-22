@@ -13,7 +13,7 @@ import (
 
 const (
 	ControlServerAddr = "0.0.0.0:8080"
-	RequestServerAddr = "0.0.0.0:8081"
+	RequestServerAddr = "0.0.0.0:8087"
 	// KeepAliveStr      = "KeepAlive\n"
 )
 
@@ -50,18 +50,19 @@ func RequestServer() {
 	if err != nil {
 		panic(err)
 	}
+	log.Printf("RequestServer is listening on %s\n", RequestServerAddr)
 	for {
 		conn, err := tcpListener.AcceptTCP()
 		if err != nil {
 			return
 		}
 		go func() {
-			if _, err := io.Copy(conn, clientConn); err != nil {
+			if _, err := io.Copy(clientConn, conn); err != nil {
 				panic(err)
 			}
 		}()
 		go func() {
-			if _, err := io.Copy(clientConn, conn); err != nil {
+			if _, err := io.Copy(conn, clientConn); err != nil {
 				panic(err)
 			}
 		}()
