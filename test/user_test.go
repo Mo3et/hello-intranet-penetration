@@ -56,16 +56,16 @@ func RequestServer() {
 			return
 		}
 		go func() {
+			if _, err := io.Copy(conn, clientConn); err != nil {
+				panic(err)
+			}
+		}()
+		go func() {
 			if _, err := io.Copy(clientConn, conn); err != nil {
 				panic(err)
 			}
 		}()
 
-		go func() {
-			if _, err := io.Copy(conn, clientConn); err != nil {
-				panic(err)
-			}
-		}()
 	}
 }
 
